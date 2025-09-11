@@ -48,5 +48,15 @@ public class UserController {
 		}
 	}
 	
+	@PostMapping("/MakeComplaint")
+	public ResponseEntity<String> DoComplaint(@RequestBody Complaint complaint){
+		try {
+			ComplaintOper.save(complaint);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Message.Complaint Submiteed");
+		}catch(Exception e){
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Message/Complaint Not Store/Submit");
+		}
+	}
 	
 }
