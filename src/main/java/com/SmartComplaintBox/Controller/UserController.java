@@ -18,7 +18,6 @@ public class UserController {
 
 	@Autowired
 	UserCrud UserOperation;
-	
 
 	@PostMapping("/AddUser")
 	public ResponseEntity<String> AddUser(@RequestBody User user) {
@@ -39,7 +38,7 @@ public class UserController {
 			if (users == null) {
 				return ResponseEntity.ofNullable("No User Found");
 			} else {
-				users.forEach(user->System.out.println(user));
+				users.forEach(user -> System.out.println(user));
 				return ResponseEntity.status(HttpStatus.OK).body("Users Found");
 			}
 		} catch (Exception e) {
@@ -47,16 +46,4 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-	
-	@PostMapping("/MakeComplaint")
-	public ResponseEntity<String> DoComplaint(@RequestBody Complaint complaint){
-		try {
-			ComplaintOper.save(complaint);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Message.Complaint Submiteed");
-		}catch(Exception e){
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Message/Complaint Not Store/Submit");
-		}
-	}
-	
 }
