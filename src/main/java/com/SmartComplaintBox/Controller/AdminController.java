@@ -32,11 +32,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/GetAdmin")
-	public ResponseEntity<String> GetAdmin(){
+	public ResponseEntity<?> GetAdmin(){
 		try {
 			List<Admin> admins = AdminOperation.findAll();
-			admins.forEach(admin -> System.out.println(admin));
-			return ResponseEntity.status(HttpStatus.OK).body("Admins Found");
+			admins.forEach(System.out::println); // O.W. admins.forEach(admin -> System.out.println(admin));
+			return ResponseEntity.status(HttpStatus.OK).body(admins);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

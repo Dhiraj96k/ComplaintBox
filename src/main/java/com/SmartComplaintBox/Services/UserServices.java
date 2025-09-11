@@ -1,7 +1,6 @@
 package com.SmartComplaintBox.Services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,6 @@ public class UserServices {
 	
 	public List<User> GetUser() {
 		return userService.findAll();
-	}
-	
-	public Optional<User> UserLogin(String userEmail,String UserPassword) {
-		return userService.findByuserEmailAndUserPassword(userEmail, UserPassword);
 	}
 	
 }
