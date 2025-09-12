@@ -20,10 +20,10 @@ public class UserController {
 	UserCrud UserOperation;
 
 	@PostMapping("/AddUser")
-	public ResponseEntity<String> AddUser(@RequestBody User user) {
+	public ResponseEntity<?> AddUser(@RequestBody User user) {
 		try {
 			UserOperation.save(user);
-			return ResponseEntity.status(HttpStatus.CREATED).body("User Created Successfully");
+			return ResponseEntity.status(HttpStatus.CREATED).body(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -32,14 +32,14 @@ public class UserController {
 	}
 
 	@GetMapping("/GetUser")
-	public ResponseEntity<String> GetUser() {
+	public ResponseEntity<?> GetUser() {
 		try {
 			List<User> users = UserOperation.findAll();
 			if (users == null) {
 				return ResponseEntity.ofNullable("No User Found");
 			} else {
 				users.forEach(user -> System.out.println(user));
-				return ResponseEntity.status(HttpStatus.OK).body("Users Found");
+				return ResponseEntity.status(HttpStatus.OK).body(users);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
