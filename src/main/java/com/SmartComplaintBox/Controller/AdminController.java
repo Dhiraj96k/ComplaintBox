@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.SmartComplaintBox.Dao.AdminCrud;
 import com.SmartComplaintBox.Entities.Admin;
+import com.SmartComplaintBox.Services.AdminServices;
 
 @RestController
 public class AdminController {
 	
 	@Autowired
 	AdminCrud AdminOperation;
+	
+	@Autowired
+	AdminServices adminService;
 
 	
 	@PostMapping("/AddAdmin")
@@ -42,5 +46,16 @@ public class AdminController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
+	
+	@PostMapping("/verify")
+    public ResponseEntity<?> verifyAdmin(@RequestBody Admin admin) {
+        Admin foundAdmin = adminService.verifyAdmin(admin.getAdmingmail(), admin.getAdminpass());
+        System.out.println(foundAdmin);
+        if (foundAdmin != null) {
+            return ResponseEntity.ok("Admin Verified Successfully!");
+        } else {
+            return ResponseEntity.status(401).body("Invalid Credentials!");
+        }
+    }
 	
 }
