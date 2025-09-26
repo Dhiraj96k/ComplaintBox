@@ -50,7 +50,7 @@ public class AdminController {
 	@PostMapping("/verify")
     public ResponseEntity<?> verifyAdmin(@RequestBody Admin admin) {
         Admin foundAdmin = adminService.verifyAdmin(admin.getAdmingmail(), admin.getAdminpass());
-        System.out.println(foundAdmin);
+        System.out.println(foundAdmin); // need to give full body data of admin if verified successfully
         if (foundAdmin != null) {
             return ResponseEntity.ok("Admin Verified Successfully!");
         } else {
